@@ -1,13 +1,16 @@
 #!/usr/bin/perl -w
 
 use strict;
+use warnings;
 use LWP::Simple;
 
+#
 my $url = shift || die "Please provide initial source";
 my $max = 10;
 
 my $html_page = get($url);
 
+#array to store the urls
 my @urls;
 while ($html_page =~ s/(http:\/\/\S+)[">]//) {
  push @urls, $1;
@@ -20,7 +23,14 @@ my $count = 0;
 
 for (my $i=0; $i<$max; $i++) {
  my $src = $urls[int(rand($#urls+1))];
- getstore($src, "web/web$count.html");
+ my $code = getstore($src, "web/web$count.html");
+ if ($code == 200){
+  print "Success";
+ }
+ else{
+  print "Failure";
+  print $code;
+ }
  print $file "$count \t $src \n";
  print STDERR "getting $count from $src\n";
  $count++;
