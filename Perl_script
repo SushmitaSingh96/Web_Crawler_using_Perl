@@ -21,7 +21,7 @@ my $count = 0;
 for (my $i=0; $i<$max; $i++) {
  my $src = $urls[int(rand($#urls+1))];
  getstore($src, "web/web$count.html");
- print $file "$count \t $source \n";
+ print $file "$count \t $src \n";
  print STDERR "getting $count from $src\n";
  $count++;
  }
